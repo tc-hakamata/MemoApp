@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { string, shape } from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Feather } from '@expo/vector-icons';
 
 export default function CircleButton(props) {
