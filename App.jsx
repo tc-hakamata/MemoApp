@@ -3,6 +3,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import firebase from 'firebase';
 
 import MemoListScreen from './src/screens/MemoListScreen';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
@@ -11,7 +13,13 @@ import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LogInScreen from './src/screens/LogInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
+import { firebaseConfig } from './env';
+
 const Stack = createStackNavigator();
+
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default function App() {
   return (
