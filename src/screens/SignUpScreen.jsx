@@ -19,9 +19,7 @@ export default function SignUpScreen(props) {
   function handlePress() {
     setLoading(true);
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const { user } = userCredential;
-        console.log(user.uid);
+      .then(() => {
         navigation.reset({
           index: 0,
           routes: [{ name: 'MemoList' }],
