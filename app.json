@@ -20,11 +20,11 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "",
+      "bundleIdentifier": "com.tchakamata.MemoApp",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "",
+      "package": "com.tchakamata.MemoApp",
       "versionCode": 1,
       "permission": [],
       "adaptiveIcon": {
@@ -34,6 +34,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "632dc353-6da7-4838-a5ac-e48e7ea52a87"
+      }
     }
   }
 }

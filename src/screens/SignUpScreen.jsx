@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, Text, TextInput, StyleSheet, TouchableOpacity, Alert,
 } from 'react-native';
@@ -8,6 +8,7 @@ import firebase from 'firebase';
 
 import Button from '../components/Button';
 import Loading from '../components/Loading';
+import CancelLogIn from '../components/CancelLogIn';
 import { translateErrors } from '../utils';
 
 export default function SignUpScreen(props) {
@@ -16,14 +17,28 @@ export default function SignUpScreen(props) {
   const [password, setPassword] = useState('');
   const [isLoading, setLoading] = useState(false);
 
+  useEffect(() => {
+    navigation.setOptions({
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerRight: () => <CancelLogIn />,
+    });
+  }, []);
+
   function handlePress() {
     setLoading(true);
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    const { currentUser } = firebase.auth();
+    if (!currentUser) { return; }
+    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+    currentUser.linkWithCredential(credential)
       .then(() => {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'MemoList' }],
-        });
+        Alert.alert('登録完了', '登録したメールアドレスとパスワードは大切に保管してください。', [
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.reset({ index: 0, routes: [{ name: 'MemoList' }] });
+            },
+          },
+        ]);
       })
       .catch((error) => {
         const errorMsg = translateErrors(error.code);
